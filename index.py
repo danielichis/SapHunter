@@ -4,7 +4,7 @@ import sys
 import subprocess
 import time
 import pyautogui
-#leerena vago ctmr
+#llerena vago ctmr
 def startSAP(environment):
     global command2, sapGuiAuto, application, connection, session
     command2 ="D:\Program Files (x86)\ERPSAP\SAPgui\saplogon.exe"
