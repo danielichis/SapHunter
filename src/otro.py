@@ -1,5 +1,11 @@
-import pandas as pd
-
-def read_cuentas():
-    cuentas=pd.read_excel("cuentas.xlsx",sheet_name="cuentas")
-    return cuentas
+# get the current date
+import datetime
+def get_current_date():
+    current_date = datetime.datetime.now().date().strftime("%d-%m-%Y")
+    return current_date
+def learning_breaks(q):
+    if q==2:
+        print("Break time")
+        return
+    print("Continue learning")
+learning_breaks(3)
