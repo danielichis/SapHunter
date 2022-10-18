@@ -1,8 +1,13 @@
 import win32com.client
 import subprocess
 import time
+from pathManagement import get_login_info
 #llerena vago ctmr
-def startSAP(environment):
+def startSAP():
+    loginData=get_login_info()
+    user=str(get_login_info()[0]['VALOR'])
+    password=str(get_login_info()[1]['VALOR'])
+    enviroment=str(get_login_info()[2]['VALOR'])
     global command2, sapGuiAuto, application, connection, session
     command2 =r"C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe"
     proc = subprocess.Popen([command2, '-new-tab'])
@@ -18,7 +23,7 @@ def startSAP(environment):
         pass
 
     #connection = application.OpenConnection("SAP QAS", True)
-    connection = application.OpenConnection(environment, True)
+    connection = application.OpenConnection(enviroment, True)
     if not type(connection) == win32com.client.CDispatch:
         application = None
         sapGuiAuto = None
@@ -106,10 +111,6 @@ def loadBankTemplates():
 #     path_xlsx=r"C:\Users\crist\OneDrive - UNIVERSIDAD NACIONAL DE INGENIERIA\Venado\Cris\2984-21062022.xlsx"
 #     environment = "QAS - EHP8 on HANA"
 
-if __name__=='__main__':
-    environment= "QAS - EHP8 on HANA"
-    startSAP(environment)
-    loadBankTemplates()
 
 
 

@@ -5,9 +5,10 @@ from pathManagement import get_templates_path
 def main():
     process_xlsxFiles() #procesamos todos los archivos en bruto y obtenemos sus plantillas
     sapInfo=get_templates_path() # con 4 ultimos digitos buscamos la info de cada plantilla para subir al sap
+    print(len(sapInfo))
     startSAP() #iniciamos sap
     for template in sapInfo:
         loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
-
+        print(template)
 if __name__ == "__main__":
-    main()
+    startSAP()
