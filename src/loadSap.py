@@ -36,13 +36,11 @@ def startSAP():
         application = None
         sapGuiAuto = None
         pass
-
-def loadBankTemplates():
-
-    session.findById("wnd[0]/usr/txtRSYST-BNAME").text = "BOT"
-    session.findById("wnd[0]/usr/pwdRSYST-BCODE").text = "botpruebas**"
+    session.findById("wnd[0]/usr/txtRSYST-BNAME").text = user
+    session.findById("wnd[0]/usr/pwdRSYST-BCODE").text = password
     session.findById("wnd[0]").sendVKey(0)
-
+    print("SAP STARTED SUCCESSFULLY...")
+def loadBankTemplates(infoSap):
     # Ingresar datos del banco
     session.findById("wnd[0]/tbar[0]/okcd").text = "ZFI_EXTBAN"
     session.findById("wnd[0]").sendVKey(0)
