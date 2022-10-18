@@ -7,7 +7,8 @@ from datetime import timedelta
 from calendar import monthrange
 import os
 import pandas as pd
-from pathManagement import get_current_path
+from pathManagement import get_current_path,createFolder
+
 
 def read_cuentas():
     configName="config.xlsx"
@@ -33,7 +34,7 @@ def read_config():
 data=read_config()
 
 def get_sheet(bankName,pathFile):
-    print(data[bankName])
+    #print(data[bankName])
     sheetName=data[bankName]['NombreHoja']
     #print(bankNamefile,sheetName)
     wb = openpyxl.load_workbook(pathFile)
@@ -50,7 +51,7 @@ def get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn):
     #print("documento :")
     #print(sheet.cell(row=i, column=codBancaColumn).value)
     #print(type(sheet.cell(row=i, column=documentColumn).value))
-    if bankName=='MERCANTIL':
+    if bankName=='Mercantil':
         if sheet.cell(row=i, column=documentColumn).value==None or sheet.cell(row=i, column=documentColumn).value=='':
             if sheet.cell(row=i, column=codBancaColumn).value==None:
                 nroDocument=''
@@ -68,7 +69,7 @@ def get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn):
             nroDocument=sheet.cell(row=i, column=documentColumn).value
     return nroDocument
 def get_description(bankName,sheet,i,descriptionColumn,nombreColum):
-    if bankName=="MERCANTIL":
+    if bankName=="Mercantil":
         if sheet.cell(row=i, column=descriptionColumn).value==None:
             description=''
         else:
@@ -91,7 +92,7 @@ def get_saldo(sheet,i,descriptionColumn,amountColumn):
         saldo=float(str(sheet.cell(row=i, column=amountColumn).value).replace(",",""))
     return saldo
 def get_amount(bankName,sheet,i,amountColumn,creditColumn,debitColumn):
-    if bankName=="MERCANTIL" or bankName=="FASSIL":
+    if bankName=="Mercantil" or bankName=="Fassil":
         if sheet.cell(row=i, column=creditColumn).value==None:
             credit=0
         else:
@@ -148,7 +149,7 @@ def read_bank(fileMeta):
     dateformat=data[bankName]['FormatoFecha']
     dateExcel=sheet[celdaFecha].value
     dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
-    print("------------",dateCero,"----------------")
+    #print("------------",dateCero,"----------------")
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)
     finalDate=datetime.datetime(dateCero.year,dateCero.month,monthrange(dateCero.year,dateCero.month)[1])
     i=int(celdaFecha[1:])
@@ -179,12 +180,13 @@ def read_bank(fileMeta):
     return {'data':dataUnion,'initialBalance':initialBalance,
     'finalBalance':finalBalance,'initialDate':initialDate,
     'finalDate':finalDate,'account':data[bankName]['CuentaCol'],'namComercial':data[bankName]['NombreComercial']}
-def make_templates(infobank):
-    binAccount=infobank['account']
-    dateFname=dtime.today().strftime("%d%m%Y")
-    fileName=f"{binAccount}-{dateFname}"
-    extractFilePath=os.path.join(get_current_path(), "extractosBancarios",fileName)
+def get_template_base():
+    filename="plantillaSap.xlsx"
+    extractFilePath=os.path.join(get_current_path(), "plantillasSap",filename)
     wb = openpyxl.load_workbook(extractFilePath)
+    return wb
+def make_templates(infobank):
+    wb=get_template_base()
     sheet = wb["UNION"]
     initialDate=infobank['initialDate'].strftime("%d/%m/%Y")
     finalDate=infobank['finalDate'].strftime("%d/%m/%Y")
@@ -209,8 +211,10 @@ def make_templates(infobank):
         sheet.cell(row=rowInit,column=4).value=dataSap[i]['type']
         sheet.cell(row=rowInit,column=5).value=dataSap[i]['amount']
         rowInit=rowInit+1
+    binAccount=infobank['account'][-4:]
+    dateFname=datetime.datetime.now().date().strftime("%d%m%Y")
     fileTemplateName=f"{binAccount}-{dateFname}.xlsx"
-    fileTemplatePath=os.path.join(get_current_path(), "plantillSap",fileTemplateName)
+    fileTemplatePath=os.path.join(get_current_path(), "plantillasSap",dateFname,fileTemplateName)
     wb.save(fileTemplatePath)
 
 def get_extrac_files():
@@ -243,18 +247,18 @@ def get_extrac_files():
         paths.append(filemeta)
     return paths
 
-
 def process_xlsxFiles():
+    currentFolder=datetime.datetime.now().date().strftime("%d%m%Y")
+    folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",currentFolder),force=False)
+    if not(folderExist):
+        print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO")
+        return
+    createFolder(os.path.join(get_current_path(), "plantillasSap",currentFolder),force=True)
     pathFiles=get_extrac_files()
     print(pathFiles)
     for fileMeta in pathFiles:
         infobank=read_bank(fileMeta)
         make_templates(infobank)
-#infobank=read_bank("ECONOMICO","banco economico.xlsx","ECONOMICO")
-#make_templates(infobank)
+
 if __name__ == "__main__":
     process_xlsxFiles()
-    #print(data)
-#process_xlsxFiles()
-
-#print(df)
