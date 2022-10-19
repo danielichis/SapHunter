@@ -1,7 +1,7 @@
 import win32com.client
 import subprocess
 import time
-from pathManagement import get_login_info
+from pathManagement import delete_txtFiles, get_login_info
 #llerena vago ctmr
 def startSAP():
     loginData=get_login_info()
@@ -45,6 +45,7 @@ def startSAP():
     
 def loadBankTemplates(infoSap):
     # Ingresar datos del banco
+    delete_txtFiles(infoSap["folderPath"])
     session.findById("wnd[0]/tbar[0]/okcd").text = "ZFI_EXTBAN"
     session.findById("wnd[0]").sendVKey(0)
 

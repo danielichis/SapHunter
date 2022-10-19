@@ -21,6 +21,13 @@ def get_current_path():
     currentSrcPath = os.getcwd()
     currentPath = Path(currentSrcPath)
     return currentPath 
+def delete_txtFiles(txtPath):
+    for path in os.listdir(txtPath):
+        # check if current path is a file
+        if os.path.isfile(os.path.join(txtPath, path)):
+            if path[-4:]==".txt":
+                os.remove(os.path.join(txtPath, path))
+                print("txt file deleted")
 
 def get_account_sap_info(binAccountPath):
     accountsInfo=pd.read_excel(os.path.join(get_current_path(),"config.xlsx"),sheet_name="cuentas").to_dict("records")
@@ -55,6 +62,7 @@ def get_templates_path():
                     "path":os.path.join(dir_path, path),
                     "AuzugTxtPath":AzugPath,
                     "umzatTxtPath":UmzatPath,
+                    "folderPath":dir_path,
                     "societyCode":sapRow["Sociedad (Campo de SAP)"],
                     "CodeBank":sapRow["Banco propio (Campo de SAP)"],
                     "currency":sapRow["MONEDA"],
