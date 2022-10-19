@@ -36,6 +36,7 @@ def get_login_info():
 
 def get_templates_path():
     currentDate=datetime.datetime.now().date().strftime("%d%m%Y")
+    currentDateSap=datetime.datetime.now().date().strftime("%d.%m.%Y")
     dir_path = os.path.join(get_current_path(), "plantillasSap",currentDate)
     sapInfo = []
     # Iterate directory
@@ -45,12 +46,20 @@ def get_templates_path():
             binAccountPath=path[:4]
             sapRow=get_account_sap_info(binAccountPath)
             if sapRow!=None:
+                txtNameAuzug=f"{str(sapRow['NRO.CUENTA'])[-4:]}_auszug.txt"
+                AzugPath=os.path.join(dir_path,txtNameAuzug)
+                txtNameUmzat=f"{str(sapRow['NRO.CUENTA'])[-4:]}_umsatz.txt"
+                UmzatPath=os.path.join(dir_path,txtNameUmzat)
                 fiels={
-                    "acountBin":path[:4],
+                    "acountBin":str(sapRow["NRO.CUENTA"])[-5:],
                     "path":os.path.join(dir_path, path),
+                    "AuzugTxtPath":AzugPath,
+                    "umzatTxtPath":UmzatPath,
+                    "societyCode":sapRow["Sociedad (Campo de SAP)"],
                     "CodeBank":sapRow["Banco propio (Campo de SAP)"],
                     "currency":sapRow["MONEDA"],
-
+                    "abrCurrency":sapRow["ABR MONEDA"],
+                    "currentDate":currentDateSap
                 }
             sapInfo.append(fiels)
 
