@@ -40,8 +40,9 @@ def startSAP():
     session.findById("wnd[0]/usr/txtRSYST-BNAME").text = user
     session.findById("wnd[0]/usr/pwdRSYST-BCODE").text = password
     session.findById("wnd[0]").sendVKey(0)
-    return proc
     print("SAP STARTED SUCCESSFULLY...")
+    return proc
+    
 def loadBankTemplates(infoSap):
     # Ingresar datos del banco
     session.findById("wnd[0]/tbar[0]/okcd").text = "ZFI_EXTBAN"
@@ -72,12 +73,13 @@ def loadBankTemplates(infoSap):
     time.sleep(1)
     session.findById("wnd[0]/usr/chkEINLESEN").selected = "true"
     session.findById("wnd[0]/usr/ctxtAUSZFILE").text =infoSap["AuzugTxtPath"]
-    session.findById("wnd[0]/usr/ctxtUMSFILE").text =infoSap["AuzugTxtPath"]
+    session.findById("wnd[0]/usr/ctxtUMSFILE").text =infoSap["umzatTxtPath"]
     session.findById("wnd[0]/usr/radPA_TEST").selected = "true"
     session.findById("wnd[0]/usr/chkP_KOAUSZ").selected = "true"
     session.findById("wnd[0]/usr/chkP_BUPRO").selected = "true"
     session.findById("wnd[0]/usr/chkP_STATIK").selected = "true"
     session.findById("wnd[0]/usr/chkPA_LSEPA").selected = "true"
+
     session.findById("wnd[0]/usr/radPA_TEST").setFocus
     session.findById("wnd[0]/usr/radPA_TEST").setFocus
     session.findById("wnd[0]/tbar[1]/btn[8]").press()
@@ -90,7 +92,7 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").selectedNode = "F00115"
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").topNode = "Favo"
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").doubleClickNode("F00115")
-    time.sleep(0.5)
+    time.sleep(1)
 
     session.findById("wnd[1]/usr/ctxtSL_BUKRS-LOW").text = infoSap["societyCode"]
     session.findById("wnd[1]/usr/ctxtSL_HBKID-LOW").text = infoSap["CodeBank"]

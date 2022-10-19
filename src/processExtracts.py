@@ -8,7 +8,11 @@ from calendar import monthrange
 import os
 import pandas as pd
 from pathManagement import get_current_path,createFolder
+import locale
 
+def get_float_from_string(string):
+    locale.setlocale(locale.LC_ALL, 'es.UTF-8')
+    return locale.atof(string)
 
 def read_cuentas():
     configName="config.xlsx"
@@ -38,7 +42,8 @@ def get_sheet(bankName,pathFile):
     sheetName=data[bankName]['NombreHoja']
     #print(bankNamefile,sheetName)
     wb = openpyxl.load_workbook(pathFile)
-    sheet = wb[sheetName]
+    #sheet = wb[sheetName]
+    sheet=wb.worksheets[0]
     return sheet
 def get_dateRow(sheet,i,dateColumn):
     if sheet.cell(row=i, column=dateColumn).value==None:
@@ -148,6 +153,8 @@ def read_bank(fileMeta):
     
     dateformat=data[bankName]['FormatoFecha']
     dateExcel=sheet[celdaFecha].value
+    print(f"IMPRIMIENDO FECHA EXCEL VALUE{fileMeta['name']}")
+    print(dateExcel)
     dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
     #print("------------",dateCero,"----------------")
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)

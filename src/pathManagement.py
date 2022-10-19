@@ -26,9 +26,9 @@ def get_account_sap_info(binAccountPath):
     accountsInfo=pd.read_excel(os.path.join(get_current_path(),"config.xlsx"),sheet_name="cuentas").to_dict("records")
     #DataSap=[]
     for acountRow in accountsInfo:
-        print(str(acountRow["NRO.CUENTA"])[-4:],binAccountPath)
+        #print(str(acountRow["NRO.CUENTA"])[-4:],binAccountPath)
         if str(acountRow["NRO.CUENTA"])[-4:]==str(binAccountPath):
-            print("encontrado, terminando....")
+            #print("encontrado, terminando....")
             return acountRow
 def get_login_info():
     loginInfo=pd.read_excel(os.path.join(get_current_path(),"config.xlsx"),sheet_name="LoginSap").to_dict("records")
@@ -46,9 +46,9 @@ def get_templates_path():
             binAccountPath=path[:4]
             sapRow=get_account_sap_info(binAccountPath)
             if sapRow!=None:
-                txtNameAuzug=f"{str(sapRow['NRO.CUENTA'])[-4:]}_auszug.txt"
+                txtNameAuzug=f"auszug.txt"
                 AzugPath=os.path.join(dir_path,txtNameAuzug)
-                txtNameUmzat=f"{str(sapRow['NRO.CUENTA'])[-4:]}_umsatz.txt"
+                txtNameUmzat=f"umsatz.txt"
                 UmzatPath=os.path.join(dir_path,txtNameUmzat)
                 fiels={
                     "acountBin":str(sapRow["NRO.CUENTA"])[-5:],
@@ -59,7 +59,7 @@ def get_templates_path():
                     "CodeBank":sapRow["Banco propio (Campo de SAP)"],
                     "currency":sapRow["MONEDA"],
                     "abrCurrency":sapRow["ABR MONEDA"],
-                    "currentDate":currentDateSap
+                    "currentDate":"01.05.2022"
                 }
             sapInfo.append(fiels)
 
