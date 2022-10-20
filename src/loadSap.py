@@ -1,3 +1,4 @@
+from concurrent.futures import process
 import win32com.client
 import subprocess
 import time
@@ -58,9 +59,15 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[0]/usr/txtSINI").text = "0"
     session.findById("wnd[0]/usr/ctxtARCHIVO").setFocus
     session.findById("wnd[0]/usr/ctxtARCHIVO").text = infoSap["path"]
+    rutaExcel=infoSap["path"]
+    print(f"Template loaded successfully{rutaExcel}")
     session.findById("wnd[0]/tbar[1]/btn[8]").press()
     time.sleep(1)
-    session.findById("wnd[1]/tbar[0]/btn[8]").press()
+    try:
+        session.findById("wnd[1]/tbar[0]/btn[8]").press()
+    except:
+        time.sleep(2)
+        raise Exception("ERROR DE FORMATO DE ARCHIVO EXCEL")
     time.sleep(1)
     session.findById("wnd[1]/usr/ctxtRLGRAP-FILENAME").text =infoSap["AuzugTxtPath"]
     session.findById("wnd[1]/tbar[0]/btn[0]").press()
@@ -88,8 +95,12 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[0]/tbar[0]/btn[3]").press()
     session.findById("wnd[0]/tbar[0]/btn[3]").press()
     session.findById("wnd[0]/tbar[0]/btn[3]").press()
+    try:
+        session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").expandNode("F00113")
+    except:
+        time.sleep(2)
+        raise Exception("ERROR DE EXTRACTO DE MEMORIA DE DATOS BANCARIOS")
 
-    session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").expandNode("F00113")
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").selectedNode = "F00115"
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").topNode = "Favo"
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").doubleClickNode("F00115")
@@ -102,6 +113,8 @@ def loadBankTemplates(infoSap):
 
     p=session.findById("wnd[0]/shellcont/shell").getNodeChildrenCount("0101")
     session.findById("wnd[0]/shellcont/shell").expandNode(f"01010{p}")
+    #print(str(p))
+    #time.sleep(2)
     session.findById("wnd[0]/shellcont/shell").selectedNode = (f"01010{p}0001")
     session.findById("wnd[0]/shellcont/shell").nodeContextMenu(f"01010{p}0001")
     session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("BS_POST_ITEMS")

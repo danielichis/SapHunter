@@ -7,7 +7,7 @@ import os
 def createFolder(path,force):
     try:
         if not os.path.exists(path):
-            print("folder dont exits")
+            #print("folder doesn't exist")
             if force:
                 os.makedirs(path)
                 print("folder created")

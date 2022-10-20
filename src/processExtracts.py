@@ -45,12 +45,15 @@ def get_sheet(bankName,pathFile):
     #sheet = wb[sheetName]
     sheet=wb.worksheets[0]
     return sheet
-def get_dateRow(sheet,i,dateColumn):
+def get_dateRow(sheet,i,dateColumn,formatDate):
     if sheet.cell(row=i, column=dateColumn).value==None:
         dateRow=''
     else:
         dateRow=sheet.cell(row=i, column=dateColumn).value
-    return dateRow
+
+    objectDate=dtime.strptime(str(dateRow),formatDate)
+    finalDate=dtime.strftime(objectDate,"%d/%m/%Y")
+    return finalDate
 
 def get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn):
     #print("documento :")
@@ -164,7 +167,7 @@ def read_bank(fileMeta):
     #print(i,sheet.max_row,descripcionColumn)
     while i<=sheet.max_row:
         if sheet.cell(row=i, column=maxRowColumn).value!=None:
-            dateRow=get_dateRow(sheet,i,dateColumn)
+            dateRow=get_dateRow(sheet,i,dateColumn,dateformat)
             nroDocument=get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn)
             saldo=get_saldo(sheet,i,saldoColumn,saldoColumn)
             description=get_description(bankName,sheet,i,descripcionColumn,nombreColum) #DINAMICO 
@@ -248,8 +251,6 @@ def get_extrac_files():
             "currency":currency,
             "bankName":bankName
         }
-                
-
         #print(f[:4])
         paths.append(filemeta)
     return paths
@@ -259,13 +260,13 @@ def process_xlsxFiles():
     folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",currentFolder),force=False)
     if not(folderExist):
         print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO")
-        return
+        return False
     createFolder(os.path.join(get_current_path(), "plantillasSap",currentFolder),force=True)
     pathFiles=get_extrac_files()
     print(pathFiles)
     for fileMeta in pathFiles:
         infobank=read_bank(fileMeta)
         make_templates(infobank)
-
+    return True
 if __name__ == "__main__":
     process_xlsxFiles()
