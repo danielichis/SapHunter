@@ -4,7 +4,7 @@ from loadSap import startSAP, loadBankTemplates
 from pathManagement import get_templates_path
 
 def main():
-    okExtracts=process_xlsxFiles() #procesamos todos los archivos en bruto y obtenemos sus plantillas
+    okExtracts=process_xlsxFiles() #procesamos todos los archivos en bruto y obtenemos sus plantillas 1era parte
     if not(okExtracts):
         return
     sapInfo=get_templates_path() # con 4 ultimos digitos buscamos la info de cada plantilla para subir al sap
@@ -15,10 +15,10 @@ def main():
         #20210,70014 el extracto no esta disponible en memoria de datos bancarios
         #20635,66211 con error en el formato de las fechas
         #61539,42984 ok
-        uatList=["20210"]
+        uatList=["20635"]
         if template["acountBin"] in uatList:
             try:
-                loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
+                #loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
                 print("Template loaded successfully")
                 if j==len(sapInfo)-1:
                     print("Last template")
@@ -39,6 +39,6 @@ def main():
                 print("Next template")
                     #startSAP() #iniciamos sap
 if __name__ == "__main__":
-    #process_xlsxFiles()
+    process_xlsxFiles()
     #startSAP()
-    main()
+    #main()

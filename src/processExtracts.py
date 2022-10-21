@@ -41,7 +41,10 @@ def get_sheet(bankName,pathFile):
     #print(data[bankName])
     sheetName=data[bankName]['NombreHoja']
     #print(bankNamefile,sheetName)
-    wb = openpyxl.load_workbook(pathFile)
+    try:
+        wb = openpyxl.load_workbook(pathFile)
+    except:
+        return None
     #sheet = wb[sheetName]
     sheet=wb.worksheets[0]
     return sheet
@@ -137,7 +140,8 @@ def read_bank(fileMeta):
     sheetName=data[bankName]['NombreHoja']
     pathFile=fileMeta['path']
     sheet = get_sheet(bankName,pathFile)
-    bankName=fileMeta['bankName']
+    if sheet==None:
+        return None
     dataUnion=[]
 
     cuentaColumn=data[bankName]['CuentaCol']
@@ -156,9 +160,12 @@ def read_bank(fileMeta):
     
     dateformat=data[bankName]['FormatoFecha']
     dateExcel=sheet[celdaFecha].value
-    print(f"IMPRIMIENDO FECHA EXCEL VALUE{fileMeta['name']}")
-    print(dateExcel)
-    dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
+    #print(f"IMPRIMIENDO FECHA EXCEL VALUE{fileMeta['name']}")
+    #print(dateExcel)
+    try:
+        dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
+    except:
+        raise Exception(f"ERROR EN LA FECHA DEL ARCHIVO")
     #print("------------",dateCero,"----------------")
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)
     finalDate=datetime.datetime(dateCero.year,dateCero.month,monthrange(dateCero.year,dateCero.month)[1])
@@ -263,10 +270,17 @@ def process_xlsxFiles():
         return False
     createFolder(os.path.join(get_current_path(), "plantillasSap",currentFolder),force=True)
     pathFiles=get_extrac_files()
-    print(pathFiles)
+    #print(pathFiles)
     for fileMeta in pathFiles:
-        infobank=read_bank(fileMeta)
-        make_templates(infobank)
+        try:
+            infobank=read_bank(fileMeta)
+            print("Procesando archivo: ",fileMeta['name'])
+            if infobank==None:
+                print("----------------------------------ERROR AL ABRIR EL ARCHIVO :")
+            else:
+                make_templates(infobank)
+        except Exception as e:
+            print(e)
     return True
 if __name__ == "__main__":
     process_xlsxFiles()
