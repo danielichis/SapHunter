@@ -1,5 +1,5 @@
 from ast import Not
-from processExtracts import process_xlsxFiles
+from processExtracts import process_xlsxFiles, write_log
 from loadSap import startSAP, loadBankTemplates
 from pathManagement import get_templates_path
 
@@ -11,34 +11,22 @@ def main():
     #print(len(sapInfo))
     process=startSAP() #iniciamos sap
     for j,template in enumerate(sapInfo):
+        print(f"procesando plantilla {j+1} de {len(sapInfo)}")
         #list to prove ["61539","42984"]
-        #20210,70014 el extracto no esta disponible en memoria de datos bancarios
+        #20210,70014 el extracto no esta disponible en memoriad de datos bancarios
         #20635,66211 con error en el formato de las fechas
         #61539,42984 ok
-        uatList=["20635"]
-        if template["acountBin"] in uatList:
-            try:
-                #loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
-                print("Template loaded successfully")
-                if j==len(sapInfo)-1:
-                    print("Last template")
-                    process.kill()
-                else:
-                    print("Next template")
-            except Exception as e:
-                print(e)
-                if str(e).find("Sapgui Component") > 0:
-                    print("ERROR AL ARRANCAR EL SAPGUI COMPONENT, REINICIANDO EL PROCESO...")
-                    process.kill()
-                    startSAP()
-                print("Error al cargar el template")
-                process.kill() #cerramos sap"""
-            if j==len(sapInfo):
-                print("Last template")
-            else:
-                print("Next template")
-                    #startSAP() #iniciamos sap
+        #uatList=["20210"]
+        #if template["acountBin"] in uatList:
+        try:
+            write_log("","CARGANDO AL SAP: "+template["acountBin"],template["path"])
+            loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
+            write_log(" ","CARGADO CORRECTAMENTE",template["path"])
+        except Exception as e:
+            write_log(" ",e,template["path"])
+        write_log("","\n",template["path"])
+    process.kill() #cerramos sap"""
 if __name__ == "__main__":
-    process_xlsxFiles()
+    #process_xlsxFiles()
     #startSAP()
-    #main()
+    main()

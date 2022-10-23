@@ -26,8 +26,9 @@ def delete_txtFiles(txtPath):
         # check if current path is a file
         if os.path.isfile(os.path.join(txtPath, path)):
             if path[-4:]==".txt":
-                os.remove(os.path.join(txtPath, path))
-                print("txt file deleted")
+                if path=="auszug.txt" or path=="umsatz.txt":
+                    os.remove(os.path.join(txtPath, path))
+                    print("txt file deleted")
 
 def get_account_sap_info(binAccountPath):
     accountsInfo=pd.read_excel(os.path.join(get_current_path(),"config.xlsx"),sheet_name="cuentas").to_dict("records")
@@ -50,26 +51,27 @@ def get_templates_path():
     for path in os.listdir(dir_path):
         # check if current path is a file
         if os.path.isfile(os.path.join(dir_path, path)):
-            binAccountPath=path[:4]
-            sapRow=get_account_sap_info(binAccountPath)
-            if sapRow!=None:
-                txtNameAuzug=f"auszug.txt"
-                AzugPath=os.path.join(dir_path,txtNameAuzug)
-                txtNameUmzat=f"umsatz.txt"
-                UmzatPath=os.path.join(dir_path,txtNameUmzat)
-                fiels={
-                    "acountBin":str(sapRow["NRO.CUENTA"])[-5:],
-                    "path":os.path.join(dir_path, path),
-                    "AuzugTxtPath":AzugPath,
-                    "umzatTxtPath":UmzatPath,
-                    "folderPath":dir_path,
-                    "societyCode":sapRow["Sociedad (Campo de SAP)"],
-                    "CodeBank":sapRow["Banco propio (Campo de SAP)"],
-                    "currency":sapRow["MONEDA"],
-                    "abrCurrency":sapRow["ABR MONEDA"],
-                    "currentDate":"01.05.2022"
-                }
-            sapInfo.append(fiels)
+            if path[-5:]==".xlsx":
+                binAccountPath=path[:4]
+                sapRow=get_account_sap_info(binAccountPath)
+                if sapRow!=None:
+                    txtNameAuzug=f"auszug.txt"
+                    AzugPath=os.path.join(dir_path,txtNameAuzug)
+                    txtNameUmzat=f"umsatz.txt"
+                    UmzatPath=os.path.join(dir_path,txtNameUmzat)
+                    fiels={
+                        "acountBin":str(sapRow["NRO.CUENTA"])[-5:],
+                        "path":os.path.join(dir_path, path),
+                        "AuzugTxtPath":AzugPath,
+                        "umzatTxtPath":UmzatPath,
+                        "folderPath":dir_path,
+                        "societyCode":sapRow["Sociedad (Campo de SAP)"],
+                        "CodeBank":sapRow["Banco propio (Campo de SAP)"],
+                        "currency":sapRow["MONEDA"],
+                        "abrCurrency":sapRow["ABR MONEDA"],
+                        "currentDate":"01.05.2022"
+                    }
+                sapInfo.append(fiels)
 
     return sapInfo
 print(get_login_info()[2]['VALOR'])

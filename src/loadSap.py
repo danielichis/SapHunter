@@ -1,3 +1,4 @@
+from cmath import exp
 from concurrent.futures import process
 import win32com.client
 import subprocess
@@ -14,8 +15,11 @@ def startSAP():
     command2 =pathSap
     proc = subprocess.Popen([command2, '-new-tab'])
     time.sleep(2)
-
-    sapGuiAuto = win32com.client.GetObject('SAPGUI')
+    try:
+        sapGuiAuto = win32com.client.GetObject('SAPGUI')
+    except:
+        print("Error al iniciar el SAPGUI Component")
+        return
     if not type(sapGuiAuto) == win32com.client.CDispatch:
         pass
 
@@ -77,6 +81,9 @@ def loadBankTemplates(infoSap):
     time.sleep(1)
     session.findById("wnd[0]/tbar[0]/btn[3]").press()
     time.sleep(1)
+    #HACER LA VALIDACION DEL SALDO INICIAL,SALDO FINAL DEL TXT CON EL EXCEL. LA INFO DEL EXCEL VIENE EN EL DICCIONARIO
+    # QUE DEBEMOS AGREGAR COMO NUEVO PARAMETRO EN ESTA FUNCION 
+    #UNA FUNCION PARA LEER EL SALDO INICIAL Y EL SALDO FINAL DEL TXT Y VALIDARLOS CON EL EXCEL
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").doubleClickNode("F00116")
     time.sleep(1)
     session.findById("wnd[0]/usr/chkEINLESEN").selected = "true"

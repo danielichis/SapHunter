@@ -1,10 +1,9 @@
-from locale import currency
-from time import time
 import openpyxl
 import datetime
 from datetime import datetime as dtime
 from datetime import timedelta
 from calendar import monthrange
+from pathlib import Path
 import os
 import pandas as pd
 from pathManagement import get_current_path,createFolder
@@ -165,6 +164,7 @@ def read_bank(fileMeta):
     try:
         dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
     except:
+        #write_log("","ERROR EN LA FECHA DEL ARCHIVO",fileMeta['name'])
         raise Exception(f"ERROR EN LA FECHA DEL ARCHIVO")
     #print("------------",dateCero,"----------------")
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)
@@ -193,16 +193,17 @@ def read_bank(fileMeta):
     initialBalance=dataUnion[0]['saldo']-dataUnion[0]['amount']
     finalBalance=dataUnion[len(dataUnion)-1]['saldo']
     #print(initialBalance,finalBalance)
-    #print(pd.DataFrame(dataUnion))
+    #print(data[bankName])
     return {'data':dataUnion,'initialBalance':initialBalance,
     'finalBalance':finalBalance,'initialDate':initialDate,
-    'finalDate':finalDate,'account':data[bankName]['CuentaCol'],'namComercial':data[bankName]['NombreComercial']}
+    'finalDate':finalDate,'account':fileMeta['name'][:4],'namComercial':data[bankName]['NombreComercial']}
 def get_template_base():
     filename="plantillaSap.xlsx"
     extractFilePath=os.path.join(get_current_path(), "plantillasSap",filename)
     wb = openpyxl.load_workbook(extractFilePath)
     return wb
 def make_templates(infobank):
+    #print(infobank)
     wb=get_template_base()
     sheet = wb["UNION"]
     initialDate=infobank['initialDate'].strftime("%d/%m/%Y")
@@ -221,6 +222,7 @@ def make_templates(infobank):
     sheet["B8"]=finalDate
     sheet["B3"]=infobank['namComercial']
     rowInit=17
+    
     for i in range(len(dataSap)):
         sheet.cell(row=rowInit,column=1).value=dataSap[i]['date']
         sheet.cell(row=rowInit,column=2).value=dataSap[i]['documentNr']
@@ -228,18 +230,24 @@ def make_templates(infobank):
         sheet.cell(row=rowInit,column=4).value=dataSap[i]['type']
         sheet.cell(row=rowInit,column=5).value=dataSap[i]['amount']
         rowInit=rowInit+1
+    
     binAccount=infobank['account'][-4:]
     dateFname=datetime.datetime.now().date().strftime("%d%m%Y")
     fileTemplateName=f"{binAccount}-{dateFname}.xlsx"
     fileTemplatePath=os.path.join(get_current_path(), "plantillasSap",dateFname,fileTemplateName)
+    fileTemplatefolder=os.path.join(get_current_path(), "plantillasSap",dateFname)
     wb.save(fileTemplatePath)
+    #print(f"SE CREO EL ARCHIVO {fileTemplateName}")
+    #print(fileTemplatefolder)
+    #write_log(" ","OK",fileTemplatefolder)
 
 def get_extrac_files():
     # get the current date
     tableAcounts=read_cuentas().values.tolist()
     datePathValue=datetime.date.today().strftime("%d%m%Y")
     newpath=os.path.join(get_current_path(), "extractosBancarios",datePathValue)
-    files = os.listdir(newpath)
+    files = [f for f in os.listdir(newpath) if f.endswith('.xlsx')]
+    #files = os.listdir(newpath)
     paths=[]
     for f in files:
         for tb in tableAcounts:
@@ -261,7 +269,13 @@ def get_extrac_files():
         #print(f[:4])
         paths.append(filemeta)
     return paths
-
+def write_log(s,log,rut):
+    txtfolder=os.path.dirname(rut)
+    pathLog=os.path.join(txtfolder, "logs.txt")
+    line=s+str(log)
+    print(log)
+    with open(pathLog, 'a') as file:
+        file.write(line)
 def process_xlsxFiles():
     currentFolder=datetime.datetime.now().date().strftime("%d%m%Y")
     folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",currentFolder),force=False)
@@ -271,16 +285,25 @@ def process_xlsxFiles():
     createFolder(os.path.join(get_current_path(), "plantillasSap",currentFolder),force=True)
     pathFiles=get_extrac_files()
     #print(pathFiles)
+    r=0
     for fileMeta in pathFiles:
         try:
+            log=""+fileMeta['name']
+            write_log("",log,fileMeta['path'])
             infobank=read_bank(fileMeta)
-            print("Procesando archivo: ",fileMeta['name'])
             if infobank==None:
-                print("----------------------------------ERROR AL ABRIR EL ARCHIVO :")
+                log="ARCHIVO NO PROCESADO ERROR AL ABRIR EL ARCHIVO"
+                write_log(" ",log,fileMeta['path'])
             else:
                 make_templates(infobank)
+                r=r+1
+                write_log(" ","OK",fileMeta['path'])
         except Exception as e:
-            print(e)
+            write_log(" ",e,fileMeta['path'])
+        write_log("","\n",fileMeta['path'])
+    ratio="{:.2f}".format(r/len(pathFiles)*100)
+    results=f"\n***************  PROCESO TERMINADO AL {ratio}%  ***************"
+    write_log("",results,pathFiles[0]['path'])
     return True
 if __name__ == "__main__":
     process_xlsxFiles()
