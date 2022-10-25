@@ -8,14 +8,13 @@ def main():
     if not(okExtracts):
         return
     sapInfo=get_templates_path() # con 4 ultimos digitos buscamos la info de cada plantilla para subir al sap
-    #print(len(sapInfo))
     process=startSAP() #iniciamos sap
     for j,template in enumerate(sapInfo):
         print(f"procesando plantilla {j+1} de {len(sapInfo)}")
         #list to prove ["61539","42984"]
         #20210,70014 el extracto no esta disponible en memoriad de datos bancarios
         #20635,66211 con error en el formato de las fechas
-        #61539,42984 ok
+        #61539,42984 okok
         #uatList=["20210"]
         #if template["acountBin"] in uatList:
         try:
