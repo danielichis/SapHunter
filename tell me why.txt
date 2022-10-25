@@ -1,0 +1,8 @@
+(-2147023170, 'Error en la llamada a procedimiento remoto.', None, None)
+
+Error de cuenta= "Cta.BISA 1100070014:El extracto
+202200646 aún no está disponible en memoria de datos bancarios"
+
+Error de cuenta = "(-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'D:\\Program Files (x86)\\ERPSAP\\SAPgui\\sapfront.HLP', 393215, 0), None)"
+
+Error de coma x punto = "El banco/cuenta BFAS 620210 no existe en la tabla de T028B"
