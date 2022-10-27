@@ -1,0 +1,5 @@
+CARGANDO AL SAP: 20210 ERROR DE EXTRACTO DE MEMORIA DE DATOS BANCARIOS
+CARGANDO AL SAP: 20635 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'D:\\Program Files (x86)\\ERPSAP\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO AL SAP: 61539 CARGADO CORRECTAMENTE
+CARGANDO AL SAP: 42984 ERROR DE FORMATO DE ARCHIVO EXCEL
+CARGANDO AL SAP: 66211 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'D:\\Program Files (x86)\\ERPSAP\\SAPgui\\sapfront.HLP', 393215, 0), None)
