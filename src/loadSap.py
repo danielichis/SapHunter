@@ -70,6 +70,7 @@ def loadBankTemplates(infoSap):
     try:
         session.findById("wnd[1]/tbar[0]/btn[8]").press()
     except:
+        session.endTransaction()
         time.sleep(2)
         raise Exception("ERROR DE FORMATO DE ARCHIVO EXCEL")
     time.sleep(1)
@@ -105,6 +106,7 @@ def loadBankTemplates(infoSap):
     try:
         session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").expandNode("F00113")
     except:
+        session.endTransaction()
         time.sleep(2)
         raise Exception("ERROR DE EXTRACTO DE MEMORIA DE DATOS BANCARIOS")
 
