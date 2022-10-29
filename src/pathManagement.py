@@ -4,6 +4,46 @@ from pathlib import Path
 import datetime
 import pandas as pd
 import os
+import openpyxl
+
+def readTemplateSap(sapInfo):
+    wb=openpyxl.load_workbook(sapInfo["path"])
+    sh=wb.worksheets[0]
+    initialBalance=sh["A9"].value
+    finalBalance=sh["B9"].value
+
+    bankNamefile=os.path.join(get_current_path(),"config.xlsx")
+    sheetName="LoginSap"
+    wb = openpyxl.load_workbook(bankNamefile)
+    sheet = wb[sheetName]
+    optionCase=sheet["B6"].value
+    
+    with open(sapInfo["AuzugTxtPath"], 'r') as file:
+        line=file.readlines()[0]
+        initialAuzug = line.split(";")[5]
+        finalAuzug = line.split(";")[8]
+
+        if initialAuzug.find("-")>0:
+            initialAuzug=initialAuzug.replace("-","")
+            initialAuzug=-float(initialAuzug)
+
+        if finalAuzug.find("-")>0:
+            finalAuzug=finalAuzug.replace("-","")
+            finalAuzug=-float(finalAuzug)
+            
+    print(initialBalance,finalBalance,initialAuzug,finalAuzug)
+    if optionCase=="Doble":
+        if initialBalance==initialAuzug and finalBalance==finalAuzug:
+            return True
+        else:
+            return False
+    elif optionCase=="Simple":
+        if initialBalance==finalAuzug:
+            return True
+        else:
+            return False
+    else:
+        return True
 def createFolder(path,force):
     try:
         if not os.path.exists(path):

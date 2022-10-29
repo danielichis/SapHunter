@@ -3,8 +3,10 @@ from concurrent.futures import process
 import win32com.client
 import subprocess
 import time
-from pathManagement import delete_txtFiles, get_login_info
+from pathManagement import delete_txtFiles, get_login_info,readTemplateSap
+from processExtracts import write_log
 #llerena vago ctmr
+
 def startSAP():
     loginData=get_login_info()
     user=str(get_login_info()[0]['VALOR'])
@@ -85,6 +87,14 @@ def loadBankTemplates(infoSap):
     #HACER LA VALIDACION DEL SALDO INICIAL,SALDO FINAL DEL TXT CON EL EXCEL. LA INFO DEL EXCEL VIENE EN EL DICCIONARIO
     # QUE DEBEMOS AGREGAR COMO NUEVO PARAMETRO EN ESTA FUNCION 
     #UNA FUNCION PARA LEER EL SALDO INICIAL Y EL SALDO FINAL DEL TXT Y VALIDARLOS CON EL EXCEL
+    rt=readTemplateSap(infoSap)
+    if rt==True:
+        pass
+    else:
+        #write_log(" ","ERROR EN LA VALIDACION DE TXT-EXCEL",infoSap["path"])
+        session.endTransaction()
+        time.sleep(2)
+        raise Exception("ERROR EN VALIDACION DE SALDOS")
     session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").doubleClickNode("F00116")
     time.sleep(1)
     session.findById("wnd[0]/usr/chkEINLESEN").selected = "true"
