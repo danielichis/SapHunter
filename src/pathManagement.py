@@ -1,7 +1,6 @@
-from asyncio import DatagramTransport
-from fileinput import filename
 from pathlib import Path
 import datetime
+import sys
 import pandas as pd
 import os
 import openpyxl
@@ -57,10 +56,21 @@ def createFolder(path,force):
             return True
     except OSError:
         print ('Error: Creating directory. ' +  path)
-def get_current_path():
+def get_current_path2():
     currentSrcPath = os.getcwd()
+    print(currentSrcPath)
     currentPath = Path(currentSrcPath)
-    return currentPath 
+    return currentPath
+
+def get_current_path():
+    config_name = 'myapp.cfg'
+    # determine if application is a script file or frozen exe
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+    application_path2 = Path(application_path)
+    return application_path2.parent.absolute()
 def delete_txtFiles(txtPath):
     for path in os.listdir(txtPath):
         # check if current path is a file
@@ -114,5 +124,5 @@ def get_templates_path():
                 sapInfo.append(fiels)
 
     return sapInfo
-print(get_login_info()[2]['VALOR'])
+print(get_current_path())
 

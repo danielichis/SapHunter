@@ -21,6 +21,8 @@ def startSAP():
         sapGuiAuto = win32com.client.GetObject('SAPGUI')
     except:
         print("Error al iniciar el SAPGUI Component")
+        proc.kill()
+        proc=startSAP()
         return
     if not type(sapGuiAuto) == win32com.client.CDispatch:
         pass
