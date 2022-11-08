@@ -139,5 +139,12 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[0]/shellcont/shell").selectedNode = (f"01010{p}0001")
     session.findById("wnd[0]/shellcont/shell").nodeContextMenu(f"01010{p}0001")
     session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("BS_POST_ITEMS")
-    session.findById("wnd[0]/tbar[0]/btn[3]").press()
-
+    text=session.findById("wnd[0]/sbar/pane[0]").text
+    if text.find("se contabilizó")>-1:
+        session.endTransaction()
+        pass
+    else:
+        session.endTransaction()
+        session.endTransaction()
+        session.endTransaction()
+        raise Exception(text)

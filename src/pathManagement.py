@@ -88,13 +88,32 @@ def get_account_sap_info(binAccountPath):
         if str(acountRow["NRO.CUENTA"])[-4:]==str(binAccountPath):
             #print("encontrado, terminando....")
             return acountRow
+def isNaN(num):
+    return num!= num
 def get_login_info():
+    global loginInfo
     loginInfo=pd.read_excel(os.path.join(get_current_path(),"config.xlsx"),sheet_name="LoginSap").to_dict("records")
-    return loginInfo
 
-def get_templates_path():
+    return loginInfo
+def testnulldate():
+    cddte=get_login_info()[5]['VALOR']
     currentDate=datetime.datetime.now().date().strftime("%d%m%Y")
     currentDateSap=datetime.datetime.now().date().strftime("%d.%m.%Y")
+    if isNaN(cddte):
+        pass
+    else:
+        currentDateSap=datetime.datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
+    print(currentDateSap)
+
+def get_templates_path():
+    cddte=get_login_info()[5]['VALOR']
+    currentDate=datetime.datetime.now().date().strftime("%d%m%Y")
+    currentDateSap=datetime.datetime.now().date().strftime("%d.%m.%Y")
+    if isNaN(cddte):
+        pass
+    else:
+        currentDateSap=datetime.datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
+
     dir_path = os.path.join(get_current_path(), "plantillasSap",currentDate)
     sapInfo = []
     # Iterate directory
@@ -119,10 +138,10 @@ def get_templates_path():
                         "CodeBank":sapRow["Banco propio (Campo de SAP)"],
                         "currency":sapRow["MONEDA"],
                         "abrCurrency":sapRow["ABR MONEDA"],
-                        "currentDate":"01.05.2022"
+                        "currentDate":currentDateSap
                     }
                 sapInfo.append(fiels)
 
     return sapInfo
-print(get_current_path())
+print(testnulldate())
 

@@ -1,4 +1,3 @@
-from ast import Not
 from processExtracts import process_xlsxFiles, write_log
 from loadSap import startSAP, loadBankTemplates
 from pathManagement import get_templates_path
@@ -18,9 +17,9 @@ def main():
         #uatList=["20210"]
         #if template["acountBin"] in uatList:
         try:
-            write_log("","CARGANDO AL SAP: "+template["acountBin"],template["path"])
+            write_log("","CARGANDO CUENTA: "+template["acountBin"],template["path"])
             loadBankTemplates(template) #cada template es un diccionario que tiene la ruta del archivo y la info de la cuenta
-            write_log(" ","CARGADO CORRECTAMENTE",template["path"])
+            write_log(" ","CARGADO CORRECTAMENTE ",template["path"])
         except Exception as e:
             write_log(" ",e,template["path"])
         write_log("","\n",template["path"])

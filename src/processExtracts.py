@@ -165,7 +165,7 @@ def read_bank(fileMeta):
         dateCero = datetime.datetime.strptime(str(dateExcel), dateformat)
     except:
         #write_log("","ERROR EN LA FECHA DEL ARCHIVO",fileMeta['name'])
-        raise Exception(f"ERROR EN LA FECHA DEL ARCHIVO")
+        raise Exception(f"ERROR EN EL ARCHIVO")
     #print("------------",dateCero,"----------------")
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)
     finalDate=datetime.datetime(dateCero.year,dateCero.month,monthrange(dateCero.year,dateCero.month)[1])
@@ -273,6 +273,8 @@ def write_log(s,log,rut):
     txtfolder=os.path.dirname(rut)
     pathLog=os.path.join(txtfolder, "logs.txt")
     line=s+str(log)
+    if s=="" and log!="\n":
+        line=line+" "+datetime.datetime.today().strftime("%d/%m/%Y %H:%M:%S")
     print(log)
     with open(pathLog, 'a') as file:
         file.write(line)
