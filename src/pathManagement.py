@@ -1,5 +1,5 @@
 from pathlib import Path
-import datetime
+from datetime import timedelta,datetime
 import sys
 import pandas as pd
 import os
@@ -97,24 +97,28 @@ def get_login_info():
     return loginInfo
 def testnulldate():
     cddte=get_login_info()[5]['VALOR']
-    currentDate=datetime.datetime.now().date().strftime("%d%m%Y")
-    currentDateSap=datetime.datetime.now().date().strftime("%d.%m.%Y")
+    today=datetime.today().date()
+    yesterday=today-timedelta(days=1)
+    currentDateSap=yesterday.strftime("%d.%m.%Y")
     if isNaN(cddte):
         pass
     else:
-        currentDateSap=datetime.datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
+        currentDateSap=datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
     print(currentDateSap)
 
 def get_templates_path():
     cddte=get_login_info()[5]['VALOR']
-    currentDate=datetime.datetime.now().date().strftime("%d%m%Y")
-    currentDateSap=datetime.datetime.now().date().strftime("%d.%m.%Y")
+    today=datetime.today().date()
+    yesterday=today-timedelta(days=1)
+    currentday=today-timedelta(days=0)
+    currentDateSap=yesterday.strftime("%d.%m.%Y")
+    currentDateFolder=currentday.strftime("%d%m%Y")
     if isNaN(cddte):
         pass
     else:
-        currentDateSap=datetime.datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
+        currentDateSap=datetime.strptime(str(cddte),"%Y-%m-%d %H:%M:%S").strftime("%d.%m.%Y")
 
-    dir_path = os.path.join(get_current_path(), "plantillasSap",currentDate)
+    dir_path = os.path.join(get_current_path(), "plantillasSap",currentDateFolder)
     sapInfo = []
     # Iterate directory
     for path in os.listdir(dir_path):
