@@ -120,11 +120,15 @@ def loadBankTemplates(infoSap):
         print("sin error")
     except:
         print("en el primer except")
+        time.sleep(2)
+        errortable=session.findById("wnd[1]/usr/txtMESSTXT1").text
         try:
             print("en el segundo try...")
-            session.findById("wnd[1]/tbar[0]/btn[0]").press()
-            session.endTransaction()
-            session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").expandNode("F00113")
+            if errortable.find("El banco/cuenta")==-1:
+                session.findById("wnd[1]/tbar[0]/btn[0]").press()
+                session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").expandNode("F00113")    
+            else:
+                raise Exception("ERROR DE EXTRACTO DE MEMORIA DE DATOS BANCARIOS")
         except:
             session.endTransaction()
             time.sleep(2)
