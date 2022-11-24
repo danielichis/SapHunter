@@ -95,29 +95,61 @@ def get_description(bankName,sheet,i,descriptionColumn,nombreColum):
         else:
             description=sheet.cell(row=i, column=descriptionColumn).value
     return description
+
+def get_float_from_string(number):
+    indexComma=number.find(",")
+    indexPunto=number.find(".")
+    if indexComma>=0 and indexPunto>=0:
+        #print("hay coma y punto")
+        if indexComma>indexPunto:
+            #print("hay coma y punto y la coma esta despues del punto")
+            number=number.replace(".","").replace(",",".")
+            #print(number)
+        else:
+            #print("hay coma y punto y la coma esta antes del punto")
+            number=number.replace(",","")
+    elif indexComma>=0 and indexPunto==-1:
+        #print("solo hay coma")
+        number=number.replace(",",".")
+    elif indexPunto>=0 and indexComma==-1:
+        pass
+        #print("solo hay punto")
+    else:
+        pass
+        #print("no hay coma ni punto")
+    return float(number)
+
+def get_number(number):
+    #print(type(number))
+    if type(number)==float or type(number)==int:
+        finalNumber=float(number)
+    elif type(number==str):
+        finalNumber=get_float_from_string(number)
+    pass
+    return finalNumber
 def get_saldo(sheet,i,descriptionColumn,amountColumn):
     if sheet.cell(row=i, column=amountColumn).value==None:
         saldo=0
     else:
-        saldo=float(str(sheet.cell(row=i, column=amountColumn).value).replace(",",""))
+        saldo=get_number(sheet.cell(row=i, column=amountColumn).value)
     return saldo
 def get_amount(bankName,sheet,i,amountColumn,creditColumn,debitColumn):
     if bankName=="Mercantil" or bankName=="Fassil":
         if sheet.cell(row=i, column=creditColumn).value==None:
             credit=0
         else:
-            credit=float(str(sheet.cell(row=i, column=creditColumn).value).replace(",",""))
+            credit=get_number(sheet.cell(row=i, column=creditColumn).value)
 
         if sheet.cell(row=i, column=debitColumn).value==None:
             debit=0
         else:
-            debit=float(str(sheet.cell(row=i, column=debitColumn).value).replace(",",""))
+            debit=get_number(sheet.cell(row=i, column=debitColumn).value)
         amount=credit-debit
     else:
         if sheet.cell(row=i, column=amountColumn).value==None:
             amount=0
         else:
-            amount=float(str(sheet.cell(row=i, column=amountColumn).value).replace(",",""))
+            amount=get_number(sheet.cell(row=i, column=amountColumn).value)
     return amount
 def get_typetrx(description,amount):
     if description!='':

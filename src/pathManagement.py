@@ -19,8 +19,8 @@ def readTemplateSap(sapInfo):
     
     with open(sapInfo["AuzugTxtPath"], 'r') as file:
         line=file.readlines()[0]
-        initialAuzug = line.split(";")[5]
-        finalAuzug = line.split(";")[8]
+        initialAuzug = line.split(";")[5].strip()
+        finalAuzug = line.split(";")[8].strip()
 
         if initialAuzug.find("-")>0:
             initialAuzug=initialAuzug.replace("-","")
@@ -29,7 +29,8 @@ def readTemplateSap(sapInfo):
         if finalAuzug.find("-")>0:
             finalAuzug=finalAuzug.replace("-","")
             finalAuzug=-float(finalAuzug)
-            
+    initialAuzug=float(initialAuzug)
+    finalAuzug=float(finalAuzug)
     print(initialBalance,finalBalance,initialAuzug,finalAuzug)
     if optionCase=="Doble":
         if initialBalance==initialAuzug and finalBalance==finalAuzug:
