@@ -21,6 +21,8 @@ def main():
                 write_log(" ",e,template["path"])
             write_log("","\n",template["path"])
         process.kill() #cerramos sap"""
+        process.kill() #cerramos sap"""
+        process.kill() #cerramos sap""" 
 if __name__ == "__main__":
     #process_xlsxFiles()
     #startSAP()
