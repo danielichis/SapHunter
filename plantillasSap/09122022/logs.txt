@@ -1,0 +1,1 @@
+CARGANDO CUENTA: 61539 09/12/2022 00:04:48CARGANDO CUENTA: 61539 09/12/2022 00:21:07 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
