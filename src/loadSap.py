@@ -51,7 +51,13 @@ def startSAP():
     session.findById("wnd[0]").sendVKey(0)
     print("SAP STARTED SUCCESSFULLY...")
     return proc
-    
+
+def make_num(p):
+    l=len(str(p))
+    num="01010000"
+    s=num[:8-l]+str(p)
+    return s
+
 def loadBankTemplates(infoSap):
     # Ingresar datos del banco
     delete_txtFiles(infoSap["folderPath"])
@@ -129,14 +135,13 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[1]/tbar[0]/btn[8]").press()
 
     p=session.findById("wnd[0]/shellcont/shell").getNodeChildrenCount("0101")
-    session.findById("wnd[0]/shellcont/shell").expandNode(f"0101{p}")
-    #print(str(p))
-    #time.sleep(2)
-    session.findById("wnd[0]/shellcont/shell").selectedNode = (f"0101{p}")
-    session.findById("wnd[0]/shellcont/shell").nodeContextMenu(f"0101{p}")
+    p=make_num(p)
+    session.findById("wnd[0]/shellcont/shell").expandNode(p)
+    session.findById("wnd[0]/shellcont/shell").selectedNode = (p)
+    session.findById("wnd[0]/shellcont/shell").nodeContextMenu(p)
     session.findById("wnd[0]/shellcont/shell").selectContextMenuItem("BS_POST_ITEMS")
     text=session.findById("wnd[0]/sbar/pane[0]").text
-    
+
     if text.find("se contabilizó")>-1:
         session.endTransaction()
         pass

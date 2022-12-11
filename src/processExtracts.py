@@ -1,5 +1,6 @@
 import openpyxl
 import datetime
+import pyexcel
 from datetime import datetime as dtime
 from datetime import timedelta
 from calendar import monthrange
@@ -264,7 +265,9 @@ def make_templates(infobank):
         rowInit=rowInit+1
     
     binAccount=infobank['account'][-4:]
-    dateFname=datetime.datetime.now().date().strftime("%d%m%Y")
+    dateFname=datetime.datetime.now().date()
+    daybefore=dateFname-datetime.timedelta(days=1)
+    dateFname=daybefore.strftime("%d%m%Y")
     fileTemplateName=f"{binAccount}-{dateFname}.xlsx"
     fileTemplatePath=os.path.join(get_current_path(), "plantillasSap",dateFname,fileTemplateName)
     fileTemplatefolder=os.path.join(get_current_path(), "plantillasSap",dateFname)
@@ -273,11 +276,25 @@ def make_templates(infobank):
     #print(fileTemplatefolder)
     #write_log(" ","OK",fileTemplatefolder)
 
+def convert_xls(pathFolder):    
+    filesInfolder=os.listdir(pathFolder)
+    for file in filesInfolder:
+        if file.endswith(".xls"):
+            print(file)
+            xls=pathFolder+"\\"+file
+            xlsx=pathFolder+"\\"+file.replace(".xls",".xlsx")
+            print(xls)
+            print(xlsx)
+            pyexcel.save_book_as(file_name=xls, dest_file_name=xlsx)
+            #os.remove(xls)
 def get_extrac_files():
     # get the current date
     tableAcounts=read_cuentas().values.tolist()
-    datePathValue=datetime.date.today().strftime("%d%m%Y")
-    newpath=os.path.join(get_current_path(), "extractosBancarios",datePathValue)
+    currentFolder=datetime.datetime.now().date()
+    dayBefore=currentFolder-datetime.timedelta(days=1)
+    dayBefore=dayBefore.strftime("%d%m%Y")
+    newpath=os.path.join(get_current_path(), "extractosBancarios",dayBefore)
+    convert_xls(newpath)
     files = [f for f in os.listdir(newpath) if f.endswith('.xlsx')]
     #files = os.listdir(newpath)
     paths=[]
@@ -311,12 +328,14 @@ def write_log(s,log,rut):
     with open(pathLog, 'a') as file:
         file.write(line)
 def process_xlsxFiles():
-    currentFolder=datetime.datetime.now().date().strftime("%d%m%Y")
-    folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",currentFolder),force=False)
+    currentFolder=datetime.datetime.now().date()
+    dayBefore=currentFolder-datetime.timedelta(days=1)
+    dayBefore=dayBefore.strftime("%d%m%Y")
+    folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",dayBefore),force=False)
     if not(folderExist):
         print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO")
         return False
-    createFolder(os.path.join(get_current_path(), "plantillasSap",currentFolder),force=True)
+    createFolder(os.path.join(get_current_path(), "plantillasSap",dayBefore),force=True)
     pathFiles=get_extrac_files()
     #print(pathFiles)
     r=0
