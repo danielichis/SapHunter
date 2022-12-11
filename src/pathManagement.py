@@ -44,7 +44,7 @@ def readTemplateSap(sapInfo):
             return False
     else:
         return True
-def createFolder(path,force):
+def createFolder(path,force,delete):
     try:
         if not os.path.exists(path):
             #print("folder doesn't exist")
@@ -53,7 +53,12 @@ def createFolder(path,force):
                 print("folder created")
             return False
         else:
-            print("Folder already exists")
+            if delete:
+                print("Folder already exists")
+                files=os.listdir(path)
+                for file in files:
+                    if file.endswith(".xlsx"):
+                        os.remove(path+"\\"+file)
             return True
     except OSError:
         print ('Error: Creating directory. ' +  path)

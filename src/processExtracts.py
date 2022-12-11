@@ -331,11 +331,11 @@ def process_xlsxFiles():
     currentFolder=datetime.datetime.now().date()
     dayBefore=currentFolder-datetime.timedelta(days=1)
     dayBefore=dayBefore.strftime("%d%m%Y")
-    folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",dayBefore),force=False)
+    folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",dayBefore),force=False,delete=False)
     if not(folderExist):
         print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO")
         return False
-    createFolder(os.path.join(get_current_path(), "plantillasSap",dayBefore),force=True)
+    createFolder(os.path.join(get_current_path(), "plantillasSap",dayBefore),force=True,delete=True)
     pathFiles=get_extrac_files()
     #print(pathFiles)
     r=0
@@ -354,7 +354,10 @@ def process_xlsxFiles():
         except Exception as e:
             write_log(" ",e,fileMeta['path'])
         write_log("","\n",fileMeta['path'])
-    ratio="{:.2f}".format(r/len(pathFiles)*100)
+    try:
+        ratio="{:.2f}".format(r/len(pathFiles)*100)
+    except:
+        ratio=0
     results=f"\n***************  PROCESO TERMINADO AL {ratio}%  ***************"
     write_log("",results,pathFiles[0]['path'])
     return True
