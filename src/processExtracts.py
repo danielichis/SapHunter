@@ -79,7 +79,7 @@ def get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn):
         else:
             nroDocument=sheet.cell(row=i, column=documentColumn).value
     return nroDocument
-def get_description(bankName,sheet,i,descriptionColumn,nombreColum):
+def get_description(bankName,sheet,i,descriptionColumn,nombreColum,infoComplColumn):
     if bankName=="Mercantil":
         if sheet.cell(row=i, column=descriptionColumn).value==None:
             description=''
@@ -90,6 +90,11 @@ def get_description(bankName,sheet,i,descriptionColumn,nombreColum):
         else:
             name=sheet.cell(row=i, column=nombreColum).value
         description=name+"-"+description
+    elif bankName=="Bisa":
+        if sheet.cell(row=i, column=infoComplColumn).value==None:
+            description=''
+        else:
+            description=sheet.cell(row=i, column=infoComplColumn).value
     else:   
         if sheet.cell(row=i, column=descriptionColumn).value==None:
             description=''
@@ -188,7 +193,8 @@ def read_bank(fileMeta):
     saldoColumn=data[bankName]['SaldoCol'] #OPCIONAL PARA SALIDA 3
     nombreColum=data[bankName]['NombreCol']#OPCIONAL PARA SALIDA EN SOLO 1 BANCO 
     descripcionColumn=data[bankName]['DescripcionCol']#OPCIONAL ES PARA SALIDA 4
-    codBancaColumn=data[bankName]['CodBancario']#OPCIONAL 
+    codBancaColumn=data[bankName]['CodBancario']#OPCIONAL
+    infoCompColumn=data[bankName][' Info. Complementaria']#OPCIONAL
     
     dateformat=data[bankName]['FormatoFecha']
     dateExcel=sheet[celdaFecha].value
@@ -210,7 +216,7 @@ def read_bank(fileMeta):
             dateRow=get_dateRow(sheet,i,dateColumn,dateformat)
             nroDocument=get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn)
             saldo=get_saldo(sheet,i,saldoColumn,saldoColumn)
-            description=get_description(bankName,sheet,i,descripcionColumn,nombreColum) #DINAMICO 
+            description=get_description(bankName,sheet,i,descripcionColumn,nombreColum,infoCompColumn) #DINAMICO 
             amount=get_amount(bankName,sheet,i,importColumn,creditColumn,debitColumn) #DINAMICO
             typetrx=get_typetrx(description,amount)
             unionRow={
