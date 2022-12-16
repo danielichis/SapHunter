@@ -38,9 +38,6 @@ def read_config():
 data=read_config()
 
 def get_sheet(bankName,pathFile):
-    #print(data[bankName])
-    sheetName=data[bankName]['NombreHoja']
-    #print(bankNamefile,sheetName)
     try:
         wb = openpyxl.load_workbook(pathFile)
     except:
@@ -89,7 +86,7 @@ def get_description(bankName,sheet,i,descriptionColumn,nombreColum,infoComplColu
             name=''
         else:
             name=sheet.cell(row=i, column=nombreColum).value
-        description=name+"-"+description
+        description=name+"-"+description+"-"+"Originador ACH"
     elif bankName=="Bisa":
         if sheet.cell(row=i, column=infoComplColumn).value==None:
             description=''
@@ -157,7 +154,12 @@ def get_amount(bankName,sheet,i,amountColumn,creditColumn,debitColumn):
         else:
             amount=get_number(sheet.cell(row=i, column=amountColumn).value)
     return amount
-def get_typetrx(description,amount):
+def get_typetrx(itfcolumn,amount,sheet,i):
+    if sheet.cell(row=i, column=itfcolumn).value==None:
+        description=''
+    else:
+        description=sheet.cell(row=i, column=itfcolumn).value
+    
     if description!='':
         if description.find("ITF")!=-1:
             typetrx="ZITF"
@@ -174,7 +176,6 @@ def get_typetrx(description,amount):
     return typetrx
 def read_bank(fileMeta):
     bankName=fileMeta['bankName']
-    sheetName=data[bankName]['NombreHoja']
     pathFile=fileMeta['path']
     sheet = get_sheet(bankName,pathFile)
     if sheet==None:
@@ -195,6 +196,7 @@ def read_bank(fileMeta):
     descripcionColumn=data[bankName]['DescripcionCol']#OPCIONAL ES PARA SALIDA 4
     codBancaColumn=data[bankName]['CodBancario']#OPCIONAL
     infoCompColumn=data[bankName][' Info. Complementaria']#OPCIONAL
+    itfColumn=data[bankName]['CAMPO ITF']#OPCIONAL
     
     dateformat=data[bankName]['FormatoFecha']
     dateExcel=sheet[celdaFecha].value
@@ -218,7 +220,7 @@ def read_bank(fileMeta):
             saldo=get_saldo(sheet,i,saldoColumn,saldoColumn)
             description=get_description(bankName,sheet,i,descripcionColumn,nombreColum,infoCompColumn) #DINAMICO 
             amount=get_amount(bankName,sheet,i,importColumn,creditColumn,debitColumn) #DINAMICO
-            typetrx=get_typetrx(description,amount)
+            typetrx=get_typetrx(itfColumn,amount,sheet,i)
             unionRow={
                 "date":dateRow,
                 "documentNr":nroDocument,

@@ -11,7 +11,6 @@ def readTemplateSap(sapInfo):
     initialBalance=float("{:.2f}".format(float(sh["A9"].value)))
     finalBalance=float("{:.2f}".format(float(sh["B9"].value)))
     
-
     bankNamefile=os.path.join(get_current_path(),"config.xlsx")
     sheetName="LoginSap"
     wb = openpyxl.load_workbook(bankNamefile)
