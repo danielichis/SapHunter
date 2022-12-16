@@ -23,7 +23,7 @@ def startSAP():
         print("Error al iniciar el SAPGUI Component")
         proc.kill()
         proc=startSAP()
-        return
+        return proc
     if not type(sapGuiAuto) == win32com.client.CDispatch:
         pass
 

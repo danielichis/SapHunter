@@ -8,8 +8,9 @@ import openpyxl
 def readTemplateSap(sapInfo):
     wb=openpyxl.load_workbook(sapInfo["path"])
     sh=wb.worksheets[0]
-    initialBalance=sh["A9"].value
-    finalBalance=sh["B9"].value
+    initialBalance=float("{:.2f}".format(float(sh["A9"].value)))
+    finalBalance=float("{:.2f}".format(float(sh["B9"].value)))
+    
 
     bankNamefile=os.path.join(get_current_path(),"config.xlsx")
     sheetName="LoginSap"
@@ -29,8 +30,8 @@ def readTemplateSap(sapInfo):
         if finalAuzug.find("-")>0:
             finalAuzug=finalAuzug.replace("-","")
             finalAuzug=-float(finalAuzug)
-    initialAuzug=float(initialAuzug)
-    finalAuzug=float(finalAuzug)
+    initialAuzug=float("{:.2f}".format(float(initialAuzug)))
+    finalAuzug=float("{:.2f}".format(float(finalAuzug)))
     print(initialBalance,finalBalance,initialAuzug,finalAuzug)
     if optionCase=="Doble":
         if initialBalance==initialAuzug and finalBalance==finalAuzug:
@@ -116,7 +117,7 @@ def get_templates_path():
     cddte=get_login_info()[5]['VALOR']
     today=datetime.today().date()
     yesterday=today-timedelta(days=1)
-    currentday=today-timedelta(days=0)
+    currentday=today-timedelta(days=1)
     currentDateSap=yesterday.strftime("%d.%m.%Y")
     currentDateFolder=currentday.strftime("%d%m%Y")
     if isNaN(cddte):

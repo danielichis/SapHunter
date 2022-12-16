@@ -94,7 +94,7 @@ def get_description(bankName,sheet,i,descriptionColumn,nombreColum,infoComplColu
         if sheet.cell(row=i, column=infoComplColumn).value==None:
             description=''
         else:
-            description=sheet.cell(row=i, column=infoComplColumn).value
+            description=str(sheet.cell(row=i, column=infoComplColumn).value).replace("Nombre:","")
     else:   
         if sheet.cell(row=i, column=descriptionColumn).value==None:
             description=''

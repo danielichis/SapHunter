@@ -20,9 +20,12 @@ def main():
             except Exception as e:
                 write_log(" ",e,template["path"])
             write_log("","\n",template["path"])
-        process.kill() #cerramos sap"""
-        process.kill() #cerramos sap"""
-        process.kill() #cerramos sap""" 
+        try:
+            process.kill() #cerramos sap"""
+            process.kill() #cerramos sap"""
+            process.kill() #cerramos sap""" 
+        except:
+            pass
 if __name__ == "__main__":
     #process_xlsxFiles()
     #startSAP()
