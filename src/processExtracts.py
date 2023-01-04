@@ -174,6 +174,17 @@ def get_typetrx(itfcolumn,amount,sheet,i):
         else:
             typetrx="Z002"
     return typetrx
+def maxRowRange(i,sheet,maxRowColumn):
+    k=i
+    while True:
+        if sheet.cell(row=k, column=maxRowColumn).value!=None:
+            pass
+            k=k+1
+        else:
+            break
+            
+    return k-1
+
 def read_bank(fileMeta):
     bankName=fileMeta['bankName']
     pathFile=fileMeta['path']
@@ -211,9 +222,9 @@ def read_bank(fileMeta):
     initialDate=datetime.datetime(dateCero.year,dateCero.month,1)
     finalDate=datetime.datetime(dateCero.year,dateCero.month,monthrange(dateCero.year,dateCero.month)[1])
     i=int(celdaFecha[1:])
-
+    lastRow=maxRowRange(i,sheet,maxRowColumn)
     #print(i,sheet.max_row,descripcionColumn)
-    while i<=sheet.max_row:
+    while i<=lastRow:
         if sheet.cell(row=i, column=maxRowColumn).value!=None:
             dateRow=get_dateRow(sheet,i,dateColumn,dateformat)
             nroDocument=get_documentNr(bankName,sheet,i,documentColumn,codBancaColumn)
@@ -286,15 +297,22 @@ def make_templates(infobank):
 
 def convert_xls(pathFolder):    
     filesInfolder=os.listdir(pathFolder)
+    e=""
     for file in filesInfolder:
         if file.endswith(".xls"):
-            print(file)
-            xls=pathFolder+"\\"+file
-            xlsx=pathFolder+"\\"+file.replace(".xls",".xlsx")
-            print(xls)
-            print(xlsx)
-            pyexcel.save_book_as(file_name=xls, dest_file_name=xlsx)
+            try:
+                print(file)
+                xls=pathFolder+"\\"+file
+                xlsx=pathFolder+"\\"+file.replace(".xls",".xlsx")
+                #print(xls)
+                #print(xlsx)
+                pyexcel.save_book_as(file_name=xls, dest_file_name=xlsx)
+            except Exception as e:
+                print(e)
+                os.remove(xlsx)
+                #write_log(f"")
             #os.remove(xls)
+    return e
 def get_extrac_files():
     # get the current date
     tableAcounts=read_cuentas().values.tolist()
@@ -302,7 +320,7 @@ def get_extrac_files():
     dayBefore=currentFolder-datetime.timedelta(days=1)
     dayBefore=dayBefore.strftime("%d%m%Y")
     newpath=os.path.join(get_current_path(), "extractosBancarios",dayBefore)
-    convert_xls(newpath)
+    e=convert_xls(newpath)
     files = [f for f in os.listdir(newpath) if f.endswith('.xlsx')]
     #files = os.listdir(newpath)
     paths=[]
@@ -321,7 +339,8 @@ def get_extrac_files():
             "society":society,
             "codeBank":codeBank,
             "currency":currency,
-            "bankName":bankName
+            "bankName":bankName,
+            "characterNovalid":e,
         }
         #print(f[:4])
         paths.append(filemeta)
@@ -341,11 +360,11 @@ def process_xlsxFiles():
     dayBefore=dayBefore.strftime("%d%m%Y")
     folderExist=createFolder(os.path.join(get_current_path(), "extractosBancarios",dayBefore),force=False,delete=False)
     if not(folderExist):
-        print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO")
+        print("EL FOLDER DIARIO NO EXISTE O TIENE FORMATO INCORRECTO",dayBefore)
         return False
     createFolder(os.path.join(get_current_path(), "plantillasSap",dayBefore),force=True,delete=True)
     pathFiles=get_extrac_files()
-    #print(pathFiles)
+    print(len(pathFiles))
     r=0
     for fileMeta in pathFiles:
         try:
@@ -367,7 +386,10 @@ def process_xlsxFiles():
     except:
         ratio=0
     results=f"\n***************  PROCESO TERMINADO AL {ratio}%  ***************"
-    write_log("",results,pathFiles[0]['path'])
+    try:
+        write_log("",results,pathFiles[0]['path'])
+    except:
+        pass
     return True
 if __name__ == "__main__":
     process_xlsxFiles()
