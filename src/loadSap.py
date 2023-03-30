@@ -119,6 +119,10 @@ def loadBankTemplates(infoSap):
     session.findById("wnd[0]/usr/radPA_TEST").setFocus
     session.findById("wnd[0]/usr/radPA_TEST").setFocus
     session.findById("wnd[0]/tbar[1]/btn[8]").press()
+    try:
+        session.findById("wnd[1]/tbar[0]/btn[0]").press()
+    except:
+        pass
     session.endTransaction()
 
     # session.findById("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell").selectedNode = "F00115"
