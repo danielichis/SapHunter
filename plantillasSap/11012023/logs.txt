@@ -1,0 +1,50 @@
+CARGANDO CUENTA: 70022 12/01/2023 08:48:21 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70031 12/01/2023 08:49:03 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70049 12/01/2023 08:49:33 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70057 12/01/2023 08:50:13 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70065 12/01/2023 08:50:41 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70073 12/01/2023 08:51:09 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70081 12/01/2023 08:51:37 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70090 12/01/2023 08:52:05 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70103 12/01/2023 08:52:31 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70111 12/01/2023 08:52:59 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 72017 12/01/2023 08:53:15 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70014 12/01/2023 08:58:12 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 01329 12/01/2023 08:58:41 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 61539 12/01/2023 08:59:09 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 74232 12/01/2023 08:59:37 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 65385 12/01/2023 09:00:10 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 66211 12/01/2023 09:00:47 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 99686 12/01/2023 09:01:14 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 70014 12/01/2023 09:16:12 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 01329 12/01/2023 09:16:32 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 61539 12/01/2023 09:16:47 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 74232 12/01/2023 09:17:03 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 65385 12/01/2023 09:17:18 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 66211 12/01/2023 09:17:33 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 99686 12/01/2023 09:17:48 ERROR EN VALIDACION DE SALDOS
+CARGANDO CUENTA: 70111 12/01/2023 09:19:13 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 32476 12/01/2023 09:49:18 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 42984 12/01/2023 09:49:19 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 75359 12/01/2023 09:49:19 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 78183 12/01/2023 09:49:20 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 32476 12/01/2023 09:49:38 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 42984 12/01/2023 09:49:38 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 75359 12/01/2023 09:49:39 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 78183 12/01/2023 09:49:39 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 32476 12/01/2023 09:50:04 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 42984 12/01/2023 09:50:05 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 75359 12/01/2023 09:50:05 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 78183 12/01/2023 09:50:06 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 32476 12/01/2023 09:51:07 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 42984 12/01/2023 09:51:07 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 75359 12/01/2023 09:51:08 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 78183 12/01/2023 09:51:08 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 32476 12/01/2023 09:51:50 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 42984 12/01/2023 09:51:50 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 75359 12/01/2023 09:51:51 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 78183 12/01/2023 09:51:51 (-2147352567, 'Ocurrió una excepción.', (619, 'SAP Frontend Server', 'The control could not be found by id.', 'C:\\Program Files (x86)\\SAP\\FrontEnd\\SAPgui\\sapfront.HLP', 393215, 0), None)
+CARGANDO CUENTA: 32476 12/01/2023 09:57:18 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 42984 12/01/2023 09:57:49 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 75359 12/01/2023 09:58:18 CARGADO CORRECTAMENTE 
+CARGANDO CUENTA: 78183 12/01/2023 09:58:54 CARGADO CORRECTAMENTE 

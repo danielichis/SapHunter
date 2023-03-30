@@ -1,0 +1,22 @@
+Fecha;Hora;Nro.Chq;Descripción;Importe;Saldo; Info. Complementaria;Sucursal;Canal;Nro. Ref.;Codigo
+2/2/2023;08:49;0;Crédito de otro banco ACH     ;3.079,10;2.763.619,51;de:CAPRESSO S.R.L. (Banco Ganadero)Imp. Original:Bs 3,079.10;LP - Principal(calle Loayza);On Line;45173205518;34
+2/2/2023;08:52;0;Abono por pago proveedores    ;48,02;2.763.667,53;Nota: de ATC;LP - Principal(calle Loayza);e-BISA;51317434025;34
+2/2/2023;09:30;0;Crédito de otro banco ACH     ;480.408,79;3.244.076,32;de:HIPERMAXI S.A. (Banco Economico)Imp. Original:Bs 480,408.79;LP - Principal(calle Loayza);On Line;45163233154;34
+2/2/2023;09:39;0;Depósito Efectivo             ;6.072,70;3.250.149,02;Nombre:MICHEL JOSEF LOPEZ CASTELLON Doc.ID:CCB-4513390 Num.Ctl:8371280802 Telf.:65332317 Empresa:B F;CB - La Cancha;Ventanilla;83710280802;10
+2/2/2023;09:39;0;Depósito Efectivo             ;4.469,30;3.254.618,32;Nombre:MICHEL JOSEF LOPEZ CASTELLON Doc.ID:CCB-4513390 Num.Ctl:8371280803 Telf.:65332317 Empresa:B F;CB - La Cancha;Ventanilla;83710280803;10
+2/2/2023;09:40;0;Depósito Efectivo             ;4.847,10;3.259.465,42;Nombre:MICHEL JOSEF LOPEZ CASTELLON Doc.ID:CCB-4513390 Num.Ctl:8371280804 Telf.:65332317 Empresa:B F;CB - La Cancha;Ventanilla;83710280804;10
+2/2/2023;10:39;0;Crédito de otro banco ACH     ;2.798,52;3.262.263,94;de:INDUSTRIAL Y COMERCIAL NORTE SA (Banco Mercantil)Imp. Original:Bs 2,798.52;LP - Principal(calle Loayza);On Line;45123277039;34
+2/2/2023;10:39;0;Crédito de otro banco ACH     ;135.594,90;3.397.858,84;de:INDUSTRIAL Y COMERCIAL NORTE SA (Banco Mercantil)Imp. Original:Bs 135,594.90;LP - Principal(calle Loayza);On Line;45163233389;34
+2/2/2023;12:59;0;Crédito de otro banco ACH     ;77,34;3.397.936,18;de:VILLALBA ROMERO JHOXANDER (Banco Mercantil)Imp. Original:Bs 77.34;LP - Principal(calle Loayza);On Line;45133146044;34
+2/2/2023;14:20;0;Crédito de otro banco ACH     ;28.580,00;3.426.516,18;de:CHICKENS KINGDOM SRL (Banco Mercantil)Imp. Original:Bs 28,580.00;LP - Principal(calle Loayza);On Line;45143513201;34
+2/2/2023;14:56;0;Transferencia terceros eBISA  ;194,56;3.426.710,74;de: RICO KEVIN;CB - Principal;e-BISA;53212290597;34
+2/2/2023;15:09;0;Transferencia terceros eBISA  ;113,97;3.426.824,71;de: CARTAGENA ADRIANA;CB - Principal;e-BISA;53612264482;34
+2/2/2023;15:30;0;Depósito Efectivo             ;307.953,20;3.734.777,91;Nombre:INDUSTRIAS VENADO S.A. Doc.ID:NIT-1020539025 Num.Ctl:1328881896 Telf.:0 Empresa:105 CASILLA I;CB - Principal;Ventanilla;13280881896;10
+2/2/2023;15:31;0;Depósito Cheques Otros Bancos ;585;3.735.362,91;Nombre:INDUSTRIAS VENADO S.A. Doc.ID:NIT-1020539025 Num.Ctl:1328881898 Telf.:0 Empresa:105 CASILLA I;CB - Principal;Ventanilla;13280881898;12
+2/2/2023;15:32;0;Depósito Cheques Otros Bancos ;3.168,96;3.738.531,87;Nombre:INDUSTRIAS VENADO S.A. Doc.ID:NIT-1020539025 Num.Ctl:1328881899 Telf.:0 Empresa:105 CASILLA I;CB - Principal;Ventanilla;13280881899;12
+2/2/2023;16:05;0;Crédito de otro banco ACH     ;1.439,48;3.739.971,35;de:MARIA JOSE CESPEDES LEDEZMA (Banco Crédito)Imp. Original:Bs 1,439.48;LP - Principal(calle Loayza);On Line;45133146572;34
+2/2/2023;16:18;0;Crédito de otro banco ACH     ;154,61;3.740.125,96;de:GUZMAN ORELLANA LADY LINDA (Banco Union)Imp. Original:Bs 154.61;LP - Principal(calle Loayza);On Line;45113294442;34
+2/2/2023;16:51;0;Crédito de otro banco ACH     ;188,2;3.740.314,16;de:FERNANDO PACO FERNANDEZ (Banco Crédito)Imp. Original:Bs 188.20;LP - Principal(calle Loayza);On Line;45113294533;34
+2/2/2023;17:11;0;Crédito de otro banco ACH     ;317,07;3.740.631,23;de:CAMILA ISAMAR GONZALES GONZALES (Banco Crédito)Imp. Original:Bs 317.07;LP - Principal(calle Loayza);On Line;45153140084;34
+2/2/2023;18:06;0;Crédito de otro banco ACH     ;450;3.741.081,23;de:ALDUNATE ARANCIBIA ANEL FERNANDA (Banco Ganadero)Imp. Original:Bs 450.00;LP - Principal(calle Loayza);On Line;45173207038;34
+2/2/2023;22:38;0; Regularización abono ACH     ;530,5;3.741.611,73;;Nacional;Plataforma;30330000021;34
