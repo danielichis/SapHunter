@@ -58,7 +58,8 @@ def createFolder(path,force,delete):
                 files=os.listdir(path)
                 for file in files:
                     if file.endswith(".xlsx"):
-                        os.remove(path+"\\"+file)
+                        pass
+                        #os.remove(path+"\\"+file)
             return True
     except OSError:
         print ('Error: Creating directory. ' +  path)
